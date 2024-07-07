@@ -7,8 +7,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useFriendsLocationQuery } from "../Redux/Api/api";
 import { getSocket } from "../utils/Socket";
-import { UPDATE_LOCATION } from "../../../server/constants/event";
-import { FRIEND_LOCATION } from "../constants/event";
+import { FRIEND_LOCATION, UPDATE_LOCATION } from "../constants/event";
 
 const Location = () => {
   const { user } = useSelector((state) => state.auth);
