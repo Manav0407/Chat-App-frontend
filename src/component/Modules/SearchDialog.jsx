@@ -7,6 +7,7 @@ import {
   Input,
   InputBase,
   Stack,
+  Typography,
   alpha,
   styled,
   useTheme,
@@ -56,7 +57,6 @@ const SearchDialog = (props) => {
     onClose(selectedValue);
   };
 
-
   const dispatch = useDispatch();
 
   const [searchUser] = useLazySearchUserQuery();
@@ -68,25 +68,25 @@ const SearchDialog = (props) => {
   };
 
   // console.log(search);
-  const [users,setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     // const timeOut = setTimeout(() => {
-      searchUser(search)
-        .then(( {data} ) => setUsers(data.allUsersExceptMyChats))
-        .catch((e) => console.log(e))
+    searchUser(search)
+      .then(({ data }) => setUsers(data.allUsersExceptMyChats))
+      .catch((e) => console.log(e));
     // }, 1000);
-
-    
   }, [search]);
-
 
   return (
     <>
       <Dialog onClose={handleClose} open={open}>
-        <Stack direction={"column"} sx={{ maxHeight: "1000rem", minHeight:"10rem"}}>
+        <Stack
+          direction={"column"}
+          sx={{ maxHeight: "1000rem", minHeight: "10rem" }}
+        >
           <Stack sx={{ width: "100%" }} pl={5} pr={5} pt={1}>
-            <Search sx={{marginBottom:5}}>
+            <Search sx={{ marginBottom: 5 }}>
               <SearchIconWrapper>
                 <PiMagnifyingGlass color="#709CE6" />
               </SearchIconWrapper>
@@ -96,8 +96,7 @@ const SearchDialog = (props) => {
                 value={search}
                 onChange={handleChange}
               />
-              </Search >
-             
+            </Search>
           </Stack>
           <Stack
             direction={"column"}
@@ -107,19 +106,20 @@ const SearchDialog = (props) => {
             overflow={"scroll"}
             className="w-full overflow-y-scroll no-scrollbar"
           >
-            
-            {
-              users?.map((user,index)=>{
+            {users?.length === 0 ? (
+              <Typography>No users.</Typography>
+            ) : (
+              users?.map((user, index) => {
                 return (
-                  <UserElement key={user?._id} 
-                  id = {user?._id}
-                  username={user?.username}
-                  avatar={user?.avatar?.url}
+                  <UserElement
+                    key={user?._id}
+                    id={user?._id}
+                    username={user?.username}
+                    avatar={user?.avatar?.url}
                   />
-                )
+                );
               })
-            }
-        
+            )}
           </Stack>
         </Stack>
       </Dialog>

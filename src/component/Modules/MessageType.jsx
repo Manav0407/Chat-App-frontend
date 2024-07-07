@@ -110,7 +110,7 @@ export const TextMsg = ({ message, userId, senderId, time }) => {
         }}
       >
         <Typography
-          variant="h6"
+          variant="inherit"
           fontWeight={700}
           color={!(senderId === userId) ? theme.palette.text : "#fff"}
         >

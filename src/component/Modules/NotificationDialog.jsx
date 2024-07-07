@@ -27,18 +27,17 @@ const NotificationDialog = (props) => {
   };
 
   const { isError, data, isLoading, error } = useGetNotificationQuery();
-  
+
   // console.log(data);
 
   useErrors([{ isError, error }]);
 
   const [acceptRequest] = useAcceptRequestMutation();
 
-  const requestHandler = async ({id,accept}) => {
-
+  const requestHandler = async ({ id, accept }) => {
     // console.log("id",id,accept);
     try {
-      const res = await acceptRequest({requestId:id,accept});
+      const res = await acceptRequest({ requestId: id, accept });
 
       if (res.data) {
         console.log("use socket");
@@ -48,12 +47,13 @@ const NotificationDialog = (props) => {
       }
     } catch (error) {
       toast.error(error?.message || "something went wrong");
-      console.log(error)
+      console.log(error);
     }
   };
 
-  const dispatch = useDispatch();
+  const { data: notifications } = useGetNotificationQuery();
 
+  console.log(notifications);
 
   const theme = useTheme();
 
@@ -76,19 +76,20 @@ const NotificationDialog = (props) => {
           >
             {isLoading ? (
               <Typography>Loading...</Typography>
-            ) : (
-              data?.allRequests.length > 0 &&
+            ) : data?.allRequests.length > 0 ? (
               data?.allRequests.map((req) => {
                 return (
-                 <NotificationElement
+                  <NotificationElement
                     key={req?._id}
                     id={req?._id}
                     username={req?.sender?.username}
                     avatar={req?.sender?.avatar}
-                    handler = {requestHandler}
-                 />
+                    handler={requestHandler}
+                  />
                 );
               })
+            ) : (
+              <Typography>No Requests.</Typography>
             )}
           </Stack>
         </Stack>

@@ -25,7 +25,6 @@ const ConvoMain = ({ chatId }) => {
   const { user } = useSelector((state) => state.auth);
   const [page, setPage] = useState(1);
   const containerRef = useRef(null);
-  const navigate = useNavigate();
 
   const oldMessagesChunk = useGetMessagesQuery({ chatId, page });
 
@@ -79,7 +78,6 @@ const ConvoMain = ({ chatId }) => {
 
   const allMessages = [...oldMessages, ...messages];
 
-  // console.log(allMessages);
 
   return (
     <Box

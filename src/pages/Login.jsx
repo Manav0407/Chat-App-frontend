@@ -46,7 +46,7 @@ const {values, errors, touched, handleBlur, handleChange, handleSubmit} = useFor
   },
 })
 
-const {error,message,isAuthenticated,user} = useSelector((state)=>{
+const {error,message,isAuthenticated,user,loading} = useSelector((state)=>{
   return state.auth;
 })
 
@@ -139,7 +139,7 @@ React.useEffect(()=>{
                 type="submit"
                 fullWidth
                 variant="contained"
-                // loading={loading}
+                loading={loading}
               >
                 <span>Sign In</span>
               </LoadingButton>

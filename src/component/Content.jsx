@@ -92,15 +92,13 @@ const Content = () => {
     (member) => member?._id !== user?._id
   )[0];
 
-  // const AvatarArray = [];
+  const temp = data?.chat?.members;
+  const avatararr = [];
+  for (let i = 0; i < temp?.length; i++) {
+    avatararr.push(temp[i].avatar);
+  }
 
-  // useEffect(() => {
-  //   others?.forEach((member) => {
-  //     AvatarArray.push(member?.avatar);
-  //   });
-  // });
-
-  // console.log(AvatarArray);
+  console.log(data);
 
   const errors = [
     {
@@ -176,7 +174,7 @@ const Content = () => {
           <Stack alignItems="center" direction="row" spacing={2}>
             {data?.chat?.groupChat ? (
               <AvatarGroup>
-                {AvatarArray.map((e, index) => {
+                {avatararr.map((e, index) => {
                   return <Avatar key={index} src={e} />;
                 })}
               </AvatarGroup>
@@ -188,7 +186,7 @@ const Content = () => {
             )}
             <Stack spacing={0.5}>
               <Typography variant="article" fontWeight={600}>
-                {others?.username}
+                {data?.chat?.groupChat ? data?.chat?.name : others?.username}
               </Typography>
             </Stack>
           </Stack>

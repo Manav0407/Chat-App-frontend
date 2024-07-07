@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSideBarAction } from "../Redux/Action/ui.js";
 import { faker } from "@faker-js/faker";
 import { Video, DocMsg } from "./Modules/MessageType.jsx";
-import { Shared_docs, Shared_links } from "../data/Data.js";
 import { useParams } from "react-router-dom";
 import { useGetMessagesQuery } from "../Redux/Api/api.js";
 
@@ -70,7 +69,6 @@ const Media = () => {
     onlyAudios.push(Audios[i]?.attachments[0]);
   }
 
-
   return (
     <Box sx={{ width: 320, maxHeight: "100vh" }}>
       <Stack sx={{ height: "100%" }}>
@@ -123,52 +121,79 @@ const Media = () => {
               case 0:
                 return (
                   <Grid container spacing={2}>
-                    {onlyPhtos.map((el) => (
-                      <Grid item xs={4}>
-                        <a href={el?.url} target="_blank">
-                          <img
-                            src={el?.url}
-                            alt={faker.internet.userName()}
-                            height={"100rem"}
-                            width={"100rem"}
-                          />
-                        </a>
-                      </Grid>
-                    ))}
+                    {onlyPhtos.length > 0 ? (
+                      onlyPhtos.map((el) => (
+                        <Grid item xs={4}>
+                          <a href={el?.url} target="_blank">
+                            <img
+                              src={el?.url}
+                              alt={faker.internet.userName()}
+                              height={"100rem"}
+                              width={"100rem"}
+                            />
+                          </a>
+                        </Grid>
+                      ))
+                    ) : (
+                      <Stack
+                        sx={{ width: "100%", height: "20rem" }}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                      >
+                        <Typography>Photos are not available.</Typography>
+                      </Stack>
+                    )}
                   </Grid>
                 );
               case 1:
                 return (
                   <Grid container spacing={2}>
-                    {onlyVideos.map((el) => (
-                      <Grid item xs={4}>
-                        <a href={el?.url} target="_blank">
-                          <Box sx={{ height: "5rem", width: "5rem" }}>
-                            <video
-                              src={el?.url}
-                              height={"100rem"}
-                              width={"100rem"}
-                            />
-                          </Box>
-                        </a>
-                      </Grid>
-                    ))}
+                    {onlyVideos.length > 0 ? (
+                      onlyVideos.map((el) => (
+                        <Grid item xs={4}>
+                          <a href={el?.url} target="_blank">
+                            <Box sx={{ height: "5rem", width: "5rem" }}>
+                              <video
+                                src={el?.url}
+                                height={"100rem"}
+                                width={"100rem"}
+                              />
+                            </Box>
+                          </a>
+                        </Grid>
+                      ))
+                    ) : (
+                      <Stack
+                        sx={{ width: "100%", height: "20rem" }}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                      >
+                        <Typography>Videos are not available.</Typography>
+                      </Stack>
+                    )}
                   </Grid>
                 );
 
               case 2:
                 return (
                   <Stack spacing={2}>
-                    {onlyAudios.map((el) => (
-                      <a href={el?.url} target="_blank">
-                        <Box sx={{ width:"100%"}}>
-                          <audio
-                            src={el?.url}
-                            controls
-                          />
-                        </Box>
-                      </a>
-                    ))}
+                    {onlyAudios.length > 0 ? (
+                      onlyAudios.map((el) => (
+                        <a href={el?.url} target="_blank">
+                          <Box sx={{ width: "100%" }}>
+                            <audio src={el?.url} controls />
+                          </Box>
+                        </a>
+                      ))
+                    ) : (
+                      <Stack
+                        sx={{ width: "100%", height: "20rem" }}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                      >
+                        <Typography>Audios are not available.</Typography>
+                      </Stack>
+                    )}
                   </Stack>
                 );
 
