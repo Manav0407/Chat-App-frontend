@@ -51,11 +51,8 @@ const NotificationDialog = (props) => {
     }
   };
 
-  const { data: notifications } = useGetNotificationQuery();
 
-  console.log(notifications);
 
-  const theme = useTheme();
 
   return (
     <>
