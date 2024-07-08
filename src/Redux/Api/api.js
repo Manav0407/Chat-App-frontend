@@ -2,8 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://chat-app-with-tracking-location.onrender.com" }),
   tagTypes: ["Chat", "User", "Message"],
+  // http://localhost:4000
   endpoints: (builder) => ({
 
     myChat: builder.query({
