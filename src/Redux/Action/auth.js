@@ -26,7 +26,7 @@ export const signup = (formData) => async (dispatch) => {
     dispatch(signupRequest());
 
     const { data } = await axios.post(
-      "http://localhost:4000/user/signup",
+      "https://chat-app-with-tracking-location.onrender.com/user/signup",
       formData,
       {
         headers: {
@@ -36,7 +36,6 @@ export const signup = (formData) => async (dispatch) => {
         credentials: "include",
       }
     );
-    // console.log(data);
     await dispatch(signupSuccess(data.message));
     dispatch(clearMessage());
   } catch (error) {

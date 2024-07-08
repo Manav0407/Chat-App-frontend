@@ -12,11 +12,12 @@ import { FRIEND_LOCATION, UPDATE_LOCATION } from "../constants/event";
 const Location = () => {
   const { user } = useSelector((state) => state.auth);
 
+  const [friendsLocations, setFriendsLocations] = useState([]);
+
   const userId = user?._id;
   const socket = getSocket();
-  const { data } = useFriendsLocationQuery();
+  const { data : friendsLoc } = useFriendsLocationQuery();
 
-  console.log(data);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
@@ -32,14 +33,15 @@ const Location = () => {
 
     socket.on(FRIEND_LOCATION, (data) => {
       console.log(data);
+     
     });
   }, [userId]);
+
+  // console.log(friendsLocations)
 
   const loc = [
     { lat: 20.397373, lng: 72.832802 },
     { lat: 20.397373, lng: 72.832850 },
-
-    
   ];
 
   return (
@@ -49,7 +51,7 @@ const Location = () => {
           attribution='<a href=\"https://www.maptiler.com/copyright/\" target=\"_blank\">&copy; MapTiler</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>'
           url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=zlF7DTrK04o2qpVHAWqN"
         />
-        {data?.friendsWithLocation?.map((friend) => {
+        {friendsLoc?.friendsWithLocation?.map((friend) => {
           return (
             <Marker position={[friend?.lat, friend.lng]}>
               <Popup>
@@ -59,12 +61,12 @@ const Location = () => {
             </Marker>
           );
         })}
-        {/* <Marker position={[	23.033863,72.585022]} >
+         <Marker position={[	23.033863,72.585022]} >
           <Popup>{"random"}</Popup>
         </Marker>
         <Marker position={[	31.5204,74.3587]}>
           <Popup>{"random"}</Popup>
-        </Marker> */}
+        </Marker> 
       </MapContainer>
     </Stack>
   );
