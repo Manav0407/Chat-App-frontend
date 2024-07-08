@@ -71,6 +71,7 @@ const ChatElement = ({
 
   // console.log(isOnline);
 
+  // console.log(avatar)
 
   return (
     <Link
@@ -122,11 +123,9 @@ const ChatElement = ({
             ) : (
               <Avatar alt={"name"} src={avatar} />
             )}
-            <Stack spacing={0.3}>
+            <Stack spacing={0.3} alignItems={"center"} justifyContent={"center"}>
               <Typography variant="subtitle2">{name}</Typography>
-              <Typography variant="caption">
-                {truncateText("msg", 20)}
-              </Typography>
+              
             </Stack>
           </Stack>
           <Stack spacing={2} alignItems={"center"}>

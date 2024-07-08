@@ -26,7 +26,7 @@ export const signup = (formData) => async (dispatch) => {
     dispatch(signupRequest());
 
     const { data } = await axios.post(
-      "https://chat-app-with-tracking-location.onrender.com/user/signup",
+      "http://localhost:4000/user/signup",
       formData,
       {
         headers: {
@@ -36,6 +36,7 @@ export const signup = (formData) => async (dispatch) => {
         credentials: "include",
       }
     );
+    // console.log(data);
     await dispatch(signupSuccess(data.message));
     dispatch(clearMessage());
   } catch (error) {
@@ -50,7 +51,7 @@ export const signin = (email, password) => async (dispatch) => {
     dispatch(signinRequest());
 
     const { data } = await axios.post(
-      "https://chat-app-with-tracking-location.onrender.com/user/signin",
+      "http://localhost:4000/user/signin",
       {
         email,
         password,
@@ -73,7 +74,7 @@ export const signin = (email, password) => async (dispatch) => {
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch(loadUserRequest());
-    const { data } = await axios.get("https://chat-app-with-tracking-location.onrender.com/user/me", {
+    const { data } = await axios.get("http://localhost:4000/user/me", {
       withCredentials: true,
     });
 
@@ -86,7 +87,7 @@ export const loadUser = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     dispatch(logoutRequest());
-    await axios.get("https://chat-app-with-tracking-location.onrender.com/user/logout", {
+    await axios.get("http://localhost:4000/user/logout", {
       withCredentials: true,
     });
     dispatch(logoutSuccess(null));
@@ -101,7 +102,7 @@ export const emailVarification = (id, token) => async (dispatch) => {
     console.log("token", token);
     dispatch(emailVarificationRequest());
     const { data } = await axios.get(
-      `https://chat-app-with-tracking-location.onrender.com/user/${id}/verify/${token}`
+      `http://localhost:4000/user/${id}/verify/${token}`
     );
     await dispatch(emailVarificationSuccess(data.message));
     dispatch(clearMessage());

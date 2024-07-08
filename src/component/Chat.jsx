@@ -87,10 +87,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Chat = ({ chatId }) => {
   const { isLoading, isError, refetch, error, data } = useMyChatQuery("");
 
-
-
-
-
   // console.log(data);
 
   useErrors([{ isError, error }]);
@@ -238,6 +234,7 @@ const Chat = ({ chatId }) => {
               <Typography>Loading...</Typography>
             ) : (
               data?.chats?.map((chat) => {
+                // console.log()
                 return (
                   <>
                     <ChatElement
