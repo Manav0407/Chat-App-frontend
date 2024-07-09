@@ -10,7 +10,7 @@ const getSocket =()=> useContext(socketContext);
 
 const SocketProvider = ({children})=>{
 
-    const socket = useMemo(()=>io('http://localhost:4000',{
+    const socket = useMemo(()=>io('https://chat-app-with-tracking-location.onrender.com',{
         withCredentials: true,
     }),[])
     return(
