@@ -11,17 +11,19 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 // import MarkerClusterGroup from "react-leaflet-markercluster";
 import "react-leaflet-markercluster/dist/styles.min.css";
+import userMarker from "../../dist/assets/user.png";
+import myMarker from "../../dist/assets/you.png";
 
 // Define custom icons
 const userIcon = L.icon({
-  iconUrl: "../../public/you.png",
+  iconUrl: myMarker,
   iconSize: [70, 70],
   iconAnchor: [22, 38],
   popupAnchor: [-3, -38],
 });
 
 const friendIcon = L.icon({
-  iconUrl: "../../public/user.png",
+  iconUrl:userMarker ,
   iconSize: [50, 50],
   iconAnchor: [22, 38],
   popupAnchor: [-3, -38],
@@ -29,14 +31,14 @@ const friendIcon = L.icon({
 
 // Fix for default marker icon not showing up in Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-});
+// L.Icon.Default.mergeOptions({
+//   iconRetinaUrl:
+//     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+//   iconUrl:
+//     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+//   shadowUrl:
+//     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+// });
 
 const Location = () => {
   const { user } = useSelector((state) => state.auth);
