@@ -11,8 +11,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 // import MarkerClusterGroup from "react-leaflet-markercluster";
 import "react-leaflet-markercluster/dist/styles.min.css";
-import userMarker from "../../dist/assets/user.png";
-import myMarker from "../../dist/assets/you.png";
+import userMarker from "../../dist/user.png";
+import myMarker from "../../dist/you.png";
 
 // Define custom icons
 const userIcon = L.icon({
