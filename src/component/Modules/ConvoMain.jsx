@@ -159,5 +159,4 @@ const ConvoMain = ({ chatId }) => {
     </Box>
   );
 };
-
 export default memo(ConvoMain);

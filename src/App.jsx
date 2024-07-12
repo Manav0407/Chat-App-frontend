@@ -16,15 +16,17 @@ import { SocketProvider } from "./utils/Socket";
 import ChatMain from "./pages/ChatMain";
 import GroupMain from "./pages/GroupMain";
 import About from "./component/Modules/About";
+import dotenv from "dotenv";
+import ChatBotMain from "./pages/ChatBotMain";
 function App() {
+
+  
 
   const dispatch = useDispatch();
 
   useEffect(()=>{
       dispatch(loadUser());
   },[]);
-
-
 
   const {pathname} = useLocation();
   return (
@@ -42,6 +44,7 @@ function App() {
           <Route path="/signin" element={<Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/" element={<SocketProvider><Home /></SocketProvider>} />
+          <Route path="/chat-bot" element={<ChatBotMain/>}/>
           <Route path="/:chatId" element={<SocketProvider><ChatMain/></SocketProvider>}/>
           <Route path="/group" element={<SocketProvider><Group /></SocketProvider>} />
           <Route path="/group/:chatId" element={<SocketProvider><GroupMain/></SocketProvider>}/>

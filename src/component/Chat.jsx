@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
+  Avatar,
   Badge,
   Box,
- 
   IconButton,
   Stack,
   Typography,
@@ -13,13 +13,13 @@ import { InputBase } from "@mui/material";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import ChatElement from "./Modules/ChatElement";
 import { useTheme } from "@emotion/react";
-import {  useMyChatQuery } from "../Redux/Api/api.js";
+import { useMyChatQuery } from "../Redux/Api/api.js";
 import { useErrors, useSocketEvents } from "../hooks/hooks.jsx";
 import SearchDialog from "./Modules/SearchDialog.jsx";
 import PropTypes from "prop-types";
 import { IoNotificationsSharp } from "react-icons/io5";
 import NotificationDialog from "./Modules/NotificationDialog";
-import {  useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSocket } from "../utils/Socket.jsx";
 import {
@@ -39,9 +39,7 @@ import {
   setIsDeleteMenu,
   setSelectedDeleteChat,
 } from "../Redux/Reducer/miscSlice.js";
-
-
-
+import { BsRobot } from "react-icons/bs";
 // ----------------------------------------------------------------
 // styling
 
@@ -82,12 +80,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const StyledChatBox = styled(Box)(({ theme }) => ({
+  "&:hover": {
+    cursor: "pointer",
+  },
+}));
+
 // --------------------------------------------------------------
 
 const Chat = ({ chatId }) => {
   const { isLoading, isError, refetch, error, data } = useMyChatQuery("");
 
   // console.log(data);
+  // console.log(process.env.REACT_APP_GEMINI_API_KEY);
 
   useErrors([{ isError, error }]);
 
@@ -95,7 +100,7 @@ const Chat = ({ chatId }) => {
   const [selectedValue, setSelectedValue] = React.useState();
   const [openNoti, setOpenNoti] = useState(false);
   const [noti, setNoti] = useState();
-  const [onlineUser,setOnlineUser] = useState([]);
+  const [onlineUser, setOnlineUser] = useState([]);
 
   const socket = getSocket();
 
@@ -184,7 +189,6 @@ const Chat = ({ chatId }) => {
             : "0px 0px 2px rgba(0, 0, 0, 0.35)",
       }}
     >
-      
       <Stack p={3} spacing={2} sx={{ maxHeight: "100vh" }}>
         <Stack
           alignItems={"center"}
@@ -192,7 +196,6 @@ const Chat = ({ chatId }) => {
           direction="row"
         >
           <Typography variant="h5">Chats</Typography>
-
           <Stack direction={"row"} alignItems="center" spacing={1}>
             <IconButton onClick={handleClickOpen} sx={{ width: "max-content" }}>
               <MdPersonAddAlt1 />
@@ -219,9 +222,7 @@ const Chat = ({ chatId }) => {
             />
           </Search>
         </Stack>
-        <Stack spacing={1}>
-          
-        </Stack>
+        <Stack spacing={1}></Stack>
         <Stack
           sx={{ flexGrow: 1, overflow: "scroll", height: "100%" }}
           className="w-full h-42 overflow-y-scroll no-scrollbar"
@@ -230,6 +231,48 @@ const Chat = ({ chatId }) => {
             <Typography variant="subtitle2" sx={{ color: "#676667" }}>
               All Chats
             </Typography>
+            <Link to={`/chat-bot`}>
+              <StyledChatBox
+                sx={{
+                  width: "100%",
+                  borderRadius: 1,
+                  backgroundColor: false
+                    ? theme.palette.mode === "light"
+                      ? alpha(theme.palette.primary.main, 0.5)
+                      : theme.palette.primary.main
+                    : theme.palette.mode === "light"
+                    ? "#fff"
+                    : theme.palette.primary.main,
+
+                  boxShadow:
+                    theme.palette.mode === "dark"
+                      ? "0px 0px 2px rgba(255,255,255, 0.15)"
+                      : "0px 0px 2px rgba(0, 0, 0, 0.15)",
+                }}
+                p={2}
+              >
+                <Stack
+                  direction="row"
+                  alignItems={"center"}
+                  justifyContent="space-between"
+                >
+                  <Stack direction="row" spacing={2}>
+                    <Avatar alt={"faker"}>
+                      <BsRobot/>
+                    </Avatar>
+
+                    <Stack
+                      spacing={0.3}
+                      alignItems={"center"}
+                      justifyContent={"center"}
+                    >
+                      <Typography variant="subtitle2">Chat-bot</Typography>
+                    </Stack>
+                  </Stack>
+                  <Stack spacing={2} alignItems={"center"}></Stack>
+                </Stack>
+              </StyledChatBox>
+            </Link>
             {isLoading ? (
               <Typography>Loading...</Typography>
             ) : (
@@ -237,16 +280,18 @@ const Chat = ({ chatId }) => {
                 // console.log()
                 return (
                   <>
-                    <ChatElement
-                      chatId={chat?._id}
-                      avatar={chat?.avatar}
-                      name={chat?.name}
-                      members = {chat?.members}
-                      unread={newMessageAlert}
-                      isGroup={chat?.groupChat}
-                      handleDeleteChat={handleDeleteChat}
-                      onlineUsers={onlineUser}
-                    />
+                    <Link to={`/${chat?._id}`}>
+                      <ChatElement
+                        chatId={chat?._id}
+                        avatar={chat?.avatar}
+                        name={chat?.name}
+                        members={chat?.members}
+                        unread={newMessageAlert}
+                        isGroup={chat?.groupChat}
+                        handleDeleteChat={handleDeleteChat}
+                        onlineUsers={onlineUser}
+                      />
+                    </Link>
                   </>
                 );
               })

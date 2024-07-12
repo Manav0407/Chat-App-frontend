@@ -60,26 +60,24 @@ const ChatElement = ({
   isGroup,
   handleDeleteChat,
   onlineUsers,
-  members
+  members,
 }) => {
-
   // console.log(members)
   const theme = useTheme();
 
-
-  const isOnline = members?.some((member)=>onlineUsers.includes(member))
+  const isOnline = members?.some((member) => onlineUsers.includes(member));
 
   // console.log(isOnline);
 
   // console.log(avatar)
 
   return (
-    <Link
-      to={`/${chatId}`}
-      onContextMenu={(e) => {
-        handleDeleteChat(e, chatId,isGroup);
-      }}
-    >
+    // <Link
+    //   to={`/${chatId}`}
+    //   onContextMenu={(e) => {
+    //     handleDeleteChat(e, chatId, isGroup);
+    //   }}
+    // >
       <StyledChatBox
         sx={{
           width: "100%",
@@ -123,9 +121,12 @@ const ChatElement = ({
             ) : (
               <Avatar alt={"name"} src={avatar} />
             )}
-            <Stack spacing={0.3} alignItems={"center"} justifyContent={"center"}>
+            <Stack
+              spacing={0.3}
+              alignItems={"center"}
+              justifyContent={"center"}
+            >
               <Typography variant="subtitle2">{name}</Typography>
-              
             </Stack>
           </Stack>
           <Stack spacing={2} alignItems={"center"}>
@@ -143,7 +144,7 @@ const ChatElement = ({
           </Stack>
         </Stack>
       </StyledChatBox>
-    </Link>
+    // </Link>
   );
 };
 
