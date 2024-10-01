@@ -12,7 +12,6 @@ import {
     HarmCategory,
     HarmBlockThreshold,
   } from "@google/generative-ai";
-import dotenv from 'dotenv';
 
 
 // dotenv.config({path:"E:/MERN/ChatApp/client/.env"});
